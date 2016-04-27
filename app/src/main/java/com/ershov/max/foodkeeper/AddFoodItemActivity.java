@@ -64,7 +64,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 if (!s.toString().equals("")) {
                     if (flagForChange) {
                         flagForChange = false;
-                        daysBeforeText.setText(fromDateToDuration(s.toString()));
+                        daysBeforeText.setText(FoodItem.fromDateToDuration(s.toString()));
                     } else flagForChange = true;
                 }
             }
@@ -87,7 +87,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 if (!s.toString().equals("")) {
                     if (flagForChange) {
                         flagForChange = false;
-                        inputDateText.setText(fromDurationToDate(s.toString()));
+                        inputDateText.setText(FoodItem.fromDurationToDate(s.toString()));
                     } else flagForChange = true;
                 }
             }
@@ -127,7 +127,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
                               int dayOfMonth) {
             String day = (dayOfMonth < 10) ? "0"+ String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
             monthOfYear++;
-            String month = (monthOfYear < 10) ? "0"+ String.valueOf(monthOfYear) : String.valueOf(monthOfYear);;
+            String month = (monthOfYear < 10) ? "0"+ String.valueOf(monthOfYear) : String.valueOf(monthOfYear);
             inputDateText.setText(new StringBuilder()
                     // Month is 0 based so add 1
                     .append(day).append("-").append(month).append("-")
@@ -135,29 +135,5 @@ public class AddFoodItemActivity extends AppCompatActivity {
         }
     }
 
-    private String fromDateToDuration(String date) {
-        Date currentDate = new Date();
-        Date endDate = FoodItem.stringToDate(date,FoodItem.DATE_FORMAT);
 
-        long startTime = currentDate.getTime();
-        long endTime = endDate.getTime();
-        long diffTime = endTime - startTime;
-        long diffDays = diffTime / (1000 * 60 * 60 * 24) + 1;
-        if (diffDays > 0) {
-            return String.valueOf(diffDays);
-        } else return "0";
-    }
-
-    private String fromDurationToDate(String duration) {
-        Date date = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        try {
-            c.add(Calendar.DATE, Integer.parseInt(duration));
-        } catch (NumberFormatException e) {
-            return "";
-        }
-        date = c.getTime();
-        return FoodItem.dateToString(date,FoodItem.DATE_FORMAT);
-    }
 }

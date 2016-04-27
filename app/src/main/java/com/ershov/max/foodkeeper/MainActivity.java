@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,12 +44,32 @@ public class MainActivity extends AppCompatActivity {
         db.open();
         cursor = db.getAllItems();
 
+
+
         String[] dbLine = new String[] { DB.COLUMN_NAME, DB.COLUMN_EXPIRE_DATE };
         int[] viewLine = new int[] { R.id.itemNameText, R.id.itemDateText };
 
         scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, dbLine, viewLine, 0);
+        scAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                if (columnIndex == 3) {
+                    TextView tv = (TextView) view;
+                    String days = FoodItem.fromDateToDuration(cursor.getString(columnIndex));
+                    tv.setText(days);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        );
+
         productListView = (ListView) findViewById(R.id.productListView);
-        productListView.setAdapter(scAdapter);
+        if (productListView != null) {
+            productListView.setAdapter(scAdapter);
+        }
         db.close();
     }
 
