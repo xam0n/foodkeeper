@@ -1,17 +1,26 @@
 package com.ershov.max.foodkeeper;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    DBHelper dbHelper;
+    DB db;
+    SimpleCursorAdapter scAdapter;
+    ListView productListView;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +39,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dbHelper = new DBHelper(this);
+        db = new DB(this);
+        db.open();
+        cursor = db.getAllItems();
+
+        String[] dbLine = new String[] { DB.COLUMN_NAME, DB.COLUMN_EXPIRE_DATE };
+        int[] viewLine = new int[] { R.id.itemNameText, R.id.itemDateText };
+
+        scAdapter = new SimpleCursorAdapter(this, R.layout.item, cursor, dbLine, viewLine, 0);
+        productListView = (ListView) findViewById(R.id.productListView);
+        productListView.setAdapter(scAdapter);
+        db.close();
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, 1, 0, "Удалить запись");
     }
 
     @Override

@@ -70,12 +70,6 @@ public class AddFoodItemActivity extends AppCompatActivity {
             }
         });
 
-        //
-
-
-
-        //
-
         daysBeforeText = (EditText) findViewById(R.id.daysBeforeText);
         daysBeforeText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -115,9 +109,9 @@ public class AddFoodItemActivity extends AppCompatActivity {
     private void saveItem()  {
         try {
             FoodItem item = new FoodItem(inputDateText.getText().toString(), nameText.getText().toString());
-            DBHelper dbHelper = new DBHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            db.execSQL(item.addItemQuery());
+            DB db = new DB(this);
+            db.open();
+            db.addProduct(item);
             Toast toast = Toast.makeText(this, "Data inserted to DB", Toast.LENGTH_SHORT);
             toast.show();
             db.close();
