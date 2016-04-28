@@ -13,5 +13,6 @@
 
     <dimen name="margin_start">10dp</dimen>
     <dimen name="margin_end">10dp</dimen>
+    <dimen name="margin_between">15dp</dimen>
 
 </resources>

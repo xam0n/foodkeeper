@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
-        android:src="@drawable/bckg"
+        android:src="@drawable/bckg_adding"
         android:scaleType="centerCrop" />
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:singleLine="true"
             android:fadeScrollbars="false"
             android:textSize="@dimen/hint_text_size"
-            android:layout_marginBottom="25dp" />
+            android:layout_marginBottom="@dimen/margin_between" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,7 +71,7 @@
             android:id="@+id/inputDateText"
             android:hint="@string/long_tap_or_input_here_hint"
             android:textSize="@dimen/hint_text_size"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="@dimen/margin_between" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
             android:id="@+id/textView"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/text_size"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="@dimen/margin_between" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
             android:inputType="number"
             android:hint="@string/input_number_of_days_here_hint"
             android:textSize="@dimen/hint_text_size"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="@dimen/margin_between" />
 
         <LinearLayout
             android:orientation="horizontal"
