@@ -72,61 +72,21 @@ public class MainActivity extends AppCompatActivity {
         if (productListView != null) {
             productListView.setAdapter(scAdapter);
         }
+
         productListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                delItemWithAlert(MainActivity.this, id, db);
+                delItemWithAlert(MainActivity.this, id);
+                scAdapter.notifyDataSetChanged();
                 return true;
             }
         });
         db.close();
     }
 
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, 1, 0, "Удалить запись");
-    }
-
-
-    public boolean onContextItemSelected(MenuItem item) {
-        if (item.getItemId() == 1) {
-            // получаем из пункта контекстного меню данные по пункту списка
-            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item
-                    .getMenuInfo();
-            // извлекаем id записи и удаляем соответствующую запись в БД
-            db.delRec(acmi.id);
-            // получаем новый курсор с данными
-            //getSupportLoaderManager().getLoader(0).forceLoad();
-            return true;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void delItemWithAlert(Context context, final long id, final DB db) {
+    private void delItemWithAlert(final Context context, final long id) {
         String title = "Подтверждение";
         String message = "Вы уверены, что хотите удалить это блюдо?";
         String button1String = "Да";
@@ -137,9 +97,13 @@ public class MainActivity extends AppCompatActivity {
         confirmDel.setMessage(message); // сообщение
         confirmDel.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
-                //db = new DB();
-                //db.open();
-                //db.delRec(id);
+                db = new DB(context);
+                db.open();
+                db.delRec(id);
+                db.close();
+
+                finish();
+                startActivity(getIntent());
             }
         });
         confirmDel.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
