@@ -1,17 +1,19 @@
 package com.ershov.max.foodkeeper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleCursorAdapter scAdapter;
     ListView productListView;
     Cursor cursor;
+    AlertDialog.Builder confirmDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,32 @@ public class MainActivity extends AppCompatActivity {
         db = new DB(this);
         db.open();
         cursor = db.getAllItems();
+
+
+        String title = "Подтверждение";
+        String message = "Вы уверены, что хотите удалить это блюдо?";
+        String button1String = "Да";
+        String button2String = "Нет";
+
+        confirmDel = new AlertDialog.Builder(this);
+        confirmDel.setTitle(title);  // заголовок
+        confirmDel.setMessage(message); // сообщение
+        confirmDel.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
+        confirmDel.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
+        confirmDel.setCancelable(true);
+        confirmDel.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+
+            }
+        });
 
 
 
@@ -70,6 +99,14 @@ public class MainActivity extends AppCompatActivity {
         if (productListView != null) {
             productListView.setAdapter(scAdapter);
         }
+        productListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                confirmDel.show();
+                return true;
+            }
+        });
         db.close();
     }
 
@@ -77,6 +114,21 @@ public class MainActivity extends AppCompatActivity {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, 1, 0, "Удалить запись");
+    }
+
+
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == 1) {
+            // получаем из пункта контекстного меню данные по пункту списка
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item
+                    .getMenuInfo();
+            // извлекаем id записи и удаляем соответствующую запись в БД
+            db.delRec(acmi.id);
+            // получаем новый курсор с данными
+            //getSupportLoaderManager().getLoader(0).forceLoad();
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -100,4 +152,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
