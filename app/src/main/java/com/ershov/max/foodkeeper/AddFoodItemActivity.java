@@ -61,7 +61,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!s.toString().equals("")) {
+                if (!s.toString().equals("") && FoodItem.isDateValid(s.toString())) {
                     if (flagForChange) {
                         flagForChange = false;
                         daysBeforeText.setText(FoodItem.fromDateToDuration(s.toString()));
@@ -108,13 +108,18 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
     private void saveItem()  {
         try {
-            FoodItem item = new FoodItem(inputDateText.getText().toString(), nameText.getText().toString());
-            DB db = new DB(this);
-            db.open();
-            db.addProduct(item);
-            Toast toast = Toast.makeText(this, "Data inserted to DB", Toast.LENGTH_SHORT);
-            toast.show();
-            db.close();
+            if (FoodItem.isDateValid(inputDateText.getText().toString())) {
+                FoodItem item = new FoodItem(inputDateText.getText().toString(), nameText.getText().toString());
+                DB db = new DB(this);
+                db.open();
+                db.addProduct(item);
+                Toast toast = Toast.makeText(this, "Data inserted to DB", Toast.LENGTH_SHORT);
+                toast.show();
+                db.close();
+            } else {
+                Toast toast = Toast.makeText(this, "Incorrect date", Toast.LENGTH_SHORT);
+                toast.show();
+            }
         } catch (SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();

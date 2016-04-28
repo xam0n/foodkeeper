@@ -97,4 +97,16 @@ public class FoodItem {
         date = c.getTime();
         return dateToString(date,DATE_FORMAT);
     }
+
+    public static boolean isDateValid(String date)
+    {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 }
