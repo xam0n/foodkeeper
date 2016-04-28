@@ -15,7 +15,7 @@
     <string name="product_name_title">Название продукта</string>
     <string name="input_product_name_here_hint">Введите название здесь</string>
     <string name="expiration_date_title">Дата истечения срока годности (ДД-ММ-ГГГГ)</string>
-    <string name="long_tap_or_input_here_hint">Толгий тап, чтобы выбрать</string>
+    <string name="long_tap_or_input_here_hint">Долгий тап, чтобы выбрать</string>
     <string name="or_text">или</string>
     <string name="days_before_expiration_title">Дней до истечения срока годности</string>
     <string name="input_number_of_days_here_hint">Введите число дней здесь</string>
