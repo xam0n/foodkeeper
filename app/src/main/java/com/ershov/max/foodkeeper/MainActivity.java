@@ -1,5 +1,6 @@
 package com.ershov.max.foodkeeper;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -47,34 +48,6 @@ public class MainActivity extends AppCompatActivity {
         db.open();
         cursor = db.getAllItems();
 
-
-        String title = "Подтверждение";
-        String message = "Вы уверены, что хотите удалить это блюдо?";
-        String button1String = "Да";
-        String button2String = "Нет";
-
-        confirmDel = new AlertDialog.Builder(this);
-        confirmDel.setTitle(title);  // заголовок
-        confirmDel.setMessage(message); // сообщение
-        confirmDel.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-
-            }
-        });
-        confirmDel.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int arg1) {
-
-            }
-        });
-        confirmDel.setCancelable(true);
-        confirmDel.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        });
-
-
-
         String[] dbLine = new String[] { DB.COLUMN_NAME, DB.COLUMN_EXPIRE_DATE };
         int[] viewLine = new int[] { R.id.itemNameText, R.id.itemDateText };
 
@@ -103,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                confirmDel.show();
+
+                delItemWithAlert(MainActivity.this, id, db);
                 return true;
             }
         });
@@ -149,8 +123,38 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    private void delItemWithAlert(Context context, final long id, final DB db) {
+        String title = "Подтверждение";
+        String message = "Вы уверены, что хотите удалить это блюдо?";
+        String button1String = "Да";
+        String button2String = "Нет";
+
+        confirmDel = new AlertDialog.Builder(context);
+        confirmDel.setTitle(title);  // заголовок
+        confirmDel.setMessage(message); // сообщение
+        confirmDel.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+                //db = new DB();
+                //db.open();
+                //db.delRec(id);
+            }
+        });
+        confirmDel.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int arg1) {
+
+            }
+        });
+        confirmDel.setCancelable(true);
+        confirmDel.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+
+            }
+        });
+
+        confirmDel.show();
     }
 
 }
