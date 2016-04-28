@@ -2,6 +2,7 @@ package com.ershov.max.foodkeeper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -19,32 +20,11 @@ public class FoodItem {
         this.name = "Unknown";
     }
 	
-	public FoodItem(Date expDate, String name) {
-        this.buyDate = new Date();
-        this.expireDate = expDate;
-        this.name = name;
-    }
-	
 	public FoodItem(String expDate, String name) {
         this.buyDate = new Date();
 		this.name = name;
 		this.expireDate = stringToDate(expDate,DATE_FORMAT);   
     }
-
-    public FoodItem(Date buyDate, Date expDate, String name) {
-        this.buyDate = buyDate;
-        this.expireDate = expDate;
-        this.name = name;
-    }
-
-	public String addItemQuery() {
-			String query = "INSERT INTO foodkeeper (name, buyDate, expireDate) VALUES ("
-				+ "'" + this.name + "',"
-				+ "'" + dateToString(this.buyDate,DATE_FORMAT) + "',"
-				+ "'" + dateToString(this.expireDate,DATE_FORMAT) + "'"
-				+")";
-		return query;
-	}
 
     public boolean isExpired() {
         Date currDate = new Date();
@@ -88,7 +68,33 @@ public class FoodItem {
 	
 	public static String dateToString(Date date, String dateFormatString) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
-        String datetime = dateFormat.format(date);
-        return datetime;
+        return dateFormat.format(date);
 	}
+
+    public static String fromDateToDuration(String date) {
+        Date currentDate = new Date();
+        Date endDate = stringToDate(date,DATE_FORMAT);
+        if (endDate != null) {
+            long startTime = currentDate.getTime();
+            long endTime = endDate.getTime();
+            long diffTime = endTime - startTime;
+            long diffDays = diffTime / (1000 * 60 * 60 * 24) + 1;
+            if (diffDays > 0) {
+                return String.valueOf(diffDays);
+            } else return "0";
+        } else return "0";
+    }
+
+    public static String fromDurationToDate(String duration) {
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        try {
+            c.add(Calendar.DATE, Integer.parseInt(duration));
+        } catch (NumberFormatException e) {
+            return "";
+        }
+        date = c.getTime();
+        return dateToString(date,DATE_FORMAT);
+    }
 }
