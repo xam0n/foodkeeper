@@ -32,8 +32,6 @@ public class AddFoodItemActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 		nameText = (EditText) findViewById(R.id.nameText);
 
-        //
-
         inputDateText = (EditText) findViewById(R.id.inputDateText);
         inputDateText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -113,15 +111,15 @@ public class AddFoodItemActivity extends AppCompatActivity {
                 DB db = new DB(this);
                 db.open();
                 db.addProduct(item);
-                Toast toast = Toast.makeText(this, "Data inserted to DB", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, R.string.toaster_msg_success, Toast.LENGTH_SHORT);
                 toast.show();
                 db.close();
             } else {
-                Toast toast = Toast.makeText(this, "Incorrect date", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(this, R.string.toaster_msg_wrong_date, Toast.LENGTH_SHORT);
                 toast.show();
             }
         } catch (SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, R.string.toaster_msg_fail, Toast.LENGTH_SHORT);
             toast.show();
         }
     }
@@ -134,7 +132,7 @@ public class AddFoodItemActivity extends AppCompatActivity {
             monthOfYear++;
             String month = (monthOfYear < 10) ? "0"+ String.valueOf(monthOfYear) : String.valueOf(monthOfYear);
             inputDateText.setText(new StringBuilder()
-                    // Month is 0 based so add 1
+                    // Месяца начинаются с 0
                     .append(day).append("-").append(month).append("-")
                     .append(year).append(" "));
         }

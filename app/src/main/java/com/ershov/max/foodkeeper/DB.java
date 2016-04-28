@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Created by Max on 24.04.2016.
+ * Created by Maxim Ershov on 24.04.2016.
  */
 public class DB {
 
@@ -87,11 +87,12 @@ public class DB {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DB_CREATE);
 
-            ContentValues cv = new ContentValues();
+            //тестовая запись в пустую таблицу
+            /*ContentValues cv = new ContentValues();
             cv.put(COLUMN_NAME, "test_name");
             cv.put(COLUMN_BUY_DATE, "test_buy_date");
             cv.put(COLUMN_EXPIRE_DATE, "test_end_date");
-            db.insert(DB_TABLE, null, cv);
+            db.insert(DB_TABLE, null, cv);*/
         }
 
         @Override

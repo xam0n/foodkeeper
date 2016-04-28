@@ -6,19 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Max on 24.04.2016.
+ * Created by Maxim Ershov on 24.04.2016.
  */
 public class FoodItem {
     private Date buyDate;
     private Date expireDate;
     private String name;
 	public static String DATE_FORMAT = "dd-MM-yyyy";
-
-    public FoodItem() {
-        this.buyDate = new Date();
-        this.expireDate = this.buyDate ;
-        this.name = "Unknown";
-    }
 	
 	public FoodItem(String expDate, String name) {
         this.buyDate = new Date();

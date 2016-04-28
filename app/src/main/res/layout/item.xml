@@ -6,13 +6,12 @@
 
     <TextView
         android:id="@+id/itemNameText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text=""
         android:layout_gravity="start|center_vertical"
-        android:layout_marginLeft="10dp"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/text_size"/>
 
     <TextView
         android:id="@+id/itemDateText"
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:text=""
         android:layout_gravity="center_vertical|end"
-        android:layout_marginLeft="30dp"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size"
         android:gravity="end" />
 </LinearLayout>

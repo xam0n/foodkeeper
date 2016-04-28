@@ -1,118 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ershov.max.foodkeeper.AddFoodItemActivity"
-    tools:showIn="@layout/activity_add_food_item">
+    tools:showIn="@layout/activity_add_food_item"
 
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/product_name_title"
+        android:id="@+id/textView2"
+        android:textSize="@dimen/title_text_size"
+        android:layout_gravity="start|center_horizontal"
+        android:textColor="#000000"
+        android:paddingStart="@dimen/padding_start"
+        android:paddingEnd="@dimen/padding_end"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameText"
+        android:hint="@string/input_product_name_here_hint"
+        android:singleLine="true"
+        android:fadeScrollbars="false"
+        android:textSize="@dimen/hint_text_size"
+        android:layout_marginBottom="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/expiration_date_title"
+        android:id="@+id/textView4"
+        android:textSize="@dimen/title_text_size"
+        android:layout_gravity="start|center_horizontal"
+        android:textColor="#000000"
+        android:paddingStart="@dimen/padding_start"
+        android:paddingEnd="@dimen/padding_end" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:id="@+id/inputDateText"
+        android:hint="@string/long_tap_or_input_here_hint"
+        android:textSize="@dimen/hint_text_size"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or_text"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/text_size"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/days_before_expiration_title"
+        android:id="@+id/textView3"
+        android:textSize="@dimen/title_text_size"
+        android:layout_gravity="start|center_horizontal"
+        android:textColor="#000000"
+        android:paddingStart="@dimen/padding_start"
+        android:paddingEnd="@dimen/padding_end" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/daysBeforeText"
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"
+        android:hint="@string/input_number_of_days_here_hint"
+        android:textSize="@dimen/hint_text_size"
+        android:layout_marginBottom="15dp" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:gravity="bottom">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product name"
-            android:id="@+id/textView2"
-            android:layout_gravity="left|center_horizontal"
-            android:textColor="#000000"
-            android:paddingLeft="5dp" />
-
-        <EditText
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameText"
-            android:hint="Input product name here"
-            android:alpha="70"
-            android:enabled="true"
-            android:singleLine="true"
-            android:fadeScrollbars="false"
-            android:textSize="24dp"
-            android:layout_marginBottom="25dp" />
+            android:layout_height="60dp"
+            android:text="@string/ok"
+            android:id="@+id/finishAdding"
+            android:onClick="onClickFinishAdding"
+            android:layout_gravity="bottom"
+            android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Expiration date (DD-MM-YYYY)"
-            android:id="@+id/textView4"
-            android:layout_gravity="left|center_horizontal"
-            android:textColor="#000000"
-            android:paddingLeft="5dp" />
-
-        <EditText
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:id="@+id/inputDateText"
-            android:hint="Long tap or input here"
-            android:textSize="24dp"
-            android:layout_marginBottom="15dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="or"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:textSize="32dp"
-            android:layout_marginBottom="15dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Days before expiration"
-            android:id="@+id/textView3"
-            android:layout_gravity="left|center_horizontal"
-            android:textColor="#000000"
-            android:paddingLeft="5dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/daysBeforeText"
-            android:layout_gravity="center_horizontal"
-            android:inputType="number"
-            android:hint="Input number of days here"
-            android:textSize="24dp"
-            android:layout_marginBottom="15dp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:gravity="bottom">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="OK"
-                android:id="@+id/finishAdding"
-                android:onClick="onClickFinishAdding"
-                android:layout_gravity="bottom"
-                android:layout_weight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="Add more"
-                android:id="@+id/continueAdding"
-                android:layout_gravity="bottom"
-                android:onClick="onClickContinueAdding"
-                android:layout_weight="1" />
-        </LinearLayout>
-
+            android:layout_height="60dp"
+            android:text="@string/add_more"
+            android:id="@+id/continueAdding"
+            android:layout_gravity="bottom"
+            android:onClick="onClickContinueAdding"
+            android:layout_weight="1" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
+

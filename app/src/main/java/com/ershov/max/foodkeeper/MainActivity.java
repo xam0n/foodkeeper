@@ -64,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        }
-
-        );
+        });
 
         productListView = (ListView) findViewById(R.id.productListView);
         if (productListView != null) {
@@ -87,26 +85,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void delItemWithAlert(final Context context, final long id) {
-        String title = "Подтверждение";
-        String message = "Вы уверены, что хотите удалить это блюдо?";
-        String button1String = "Да";
-        String button2String = "Нет";
-
         confirmDel = new AlertDialog.Builder(context);
-        confirmDel.setTitle(title);  // заголовок
-        confirmDel.setMessage(message); // сообщение
-        confirmDel.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
+        confirmDel.setTitle(R.string.del_alert_title);  // заголовок
+        confirmDel.setMessage(R.string.del_alert_message); // сообщение
+        confirmDel.setPositiveButton(R.string.del_alert_btn_yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
                 db = new DB(context);
                 db.open();
                 db.delRec(id);
                 db.close();
-
                 finish();
                 startActivity(getIntent());
             }
         });
-        confirmDel.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
+        confirmDel.setNegativeButton(R.string.del_alert_btn_no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int arg1) {
 
             }
